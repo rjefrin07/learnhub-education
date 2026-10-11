@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LearnHub Education</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:#17233c;background:#f5f8ff}
+header{background:#173b75;color:white;padding:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+nav a{color:white;text-decoration:none;margin:5px}
+.hero{text-align:center;padding:55px 18px;background:#e4edff}
+.hero h1{font-size:clamp(30px,6vw,46px)}
+main{max-width:1000px;margin:auto;padding:20px}
+.courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.card,.panel{background:white;padding:20px;border-radius:12px;margin-bottom:16px}
+.button{display:inline-block;background:#245bd6;color:white;padding:12px 18px;border:0;border-radius:7px;text-decoration:none;cursor:pointer}
+input,textarea{width:100%;padding:12px;margin:8px 0 15px;border:1px solid #ccd5e5;border-radius:6px;font:inherit}
+footer{text-align:center;background:#173b75;color:white;padding:20px}
+section{margin-bottom:30px}
+</style>
+</head>
+<body>
+<header>
+<strong>🎓 LearnHub</strong>
+<nav>
+<a href="#home">Home</a>
+<a href="#courses">Courses</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+<section class="hero" id="home">
+<h1>Learn Today. Lead Tomorrow.</h1>
+<p>Discover new skills and build your future with LearnHub.</p>
+<a class="button" href="#courses">Explore Courses</a>
+</section>
+<main>
+<section id="courses">
+<h2>Our Popular Courses</h2>
+<div class="courses">
+<article class="card">
+<h3>💻 Web Development</h3>
+<p>Learn HTML, CSS and JavaScript from the beginning.</p>
+<a class="button" href="#contact">Learn More</a>
+</article>
+<article class="card">
+<h3>📊 Data Science</h3>
+<p>Explore data, charts and programming fundamentals.</p>
+<a class="button" href="#contact">Learn More</a>
+</article>
+<article class="card">
+<h3>🗣️ English Skills</h3>
+<p>Improve your communication and writing skills.</p>
+<a class="button" href="#contact">Learn More</a>
+</article>
+</div>
+</section>
+<section class="panel" id="account">
+<h2>Student Login</h2>
+<p>Student accounts will be connected in a later step.</p>
+<a class="button" href="#contact">Contact Us to Get Started</a>
+</section>
+<section class="panel" id="contact">
+<h2>Contact Us</h2>
+<form id="contactForm">
+<label for="name">Your name</label>
+<input id="name" required placeholder="Enter your name">
+<label for="email">Your email</label>
+<input id="email" type="email" required placeholder="you@example.com">
+<label for="msg">Your message</label>
+<textarea id="msg" rows="4" required placeholder="How can we help?"></textarea>
+<button class="button" type="submit">Send Message</button>
+<p id="status" role="status"></p>
+</form>
+</section>
+</main>
+<footer><p>© 2026 LearnHub Education</p><p>Learn something new every day.</p></footer>
+<script>
+document.getElementById("contactForm").addEventListener("submit",function(e){
+e.preventDefault();
+document.getElementById("status").textContent="Demo only: your message has not been sent or saved.";
+});
+</script>
+</body>
+</html>
