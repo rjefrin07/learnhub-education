@@ -82,5 +82,34 @@ e.preventDefault();
 document.getElementById("status").textContent="Demo only: your message has not been sent or saved.";
 });
 </script>
+  <!-- Supabase connection -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://oipqhyykyxjjdnwiohkl.supabase.co";
+const SUPABASE_KEY = "sb_publishable_BzYOr4wlVRylwEo4DO86wQ_iMk4ow6h";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+// Load courses from Supabase
+async function loadCourses() {
+  const { data, error } = await supabaseClient
+    .from("courses")
+    .select("*");
+
+  if (error) {
+    console.error("Error loading courses:", error.message);
+    return;
+  }
+
+  console.log("Courses loaded successfully:", data);
+}
+
+// Run the function
+loadCourses();
+</script>
 </body>
 </html>
