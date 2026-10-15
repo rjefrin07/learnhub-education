@@ -319,10 +319,11 @@
       courseList.innerHTML = data.map(function(course) {
         // Support common course-name column names.
         const title =
-          course.title ||
-          course.name ||
-          course.course_name ||
-          "Untitled Course";
+    course.Title ||
+    course.title ||
+    course.name ||
+    course.course_name ||
+    "Untitled Course";
 
         const description =
           course.description ||
