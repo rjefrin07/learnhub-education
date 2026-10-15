@@ -1,101 +1,364 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LearnHub Education</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;color:#17233c;background:#f5f8ff}
-header{background:#173b75;color:white;padding:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-nav a{color:white;text-decoration:none;margin:5px}
-.hero{text-align:center;padding:55px 18px;background:#e4edff}
-.hero h1{font-size:clamp(30px,6vw,46px)}
-main{max-width:1000px;margin:auto;padding:20px}
-.courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
-.card,.panel{background:white;padding:20px;border-radius:12px;margin-bottom:16px}
-.button{display:inline-block;background:#245bd6;color:white;padding:12px 18px;border:0;border-radius:7px;text-decoration:none;cursor:pointer}
-input,textarea{width:100%;padding:12px;margin:8px 0 15px;border:1px solid #ccd5e5;border-radius:6px;font:inherit}
-footer{text-align:center;background:#173b75;color:white;padding:20px}
-section{margin-bottom:30px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LearnHub Education</title>
+
+  <meta name="description"
+        content="Learn new skills with LearnHub Education. Explore programming, data science, and more.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #17233c;
+      background: #f5f8ff;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #173b75;
+      color: white;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    header strong {
+      font-size: 24px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 5px 8px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 65px 20px;
+      background: #e4edff;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 6vw, 46px);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    section {
+      margin-bottom: 30px;
+      scroll-margin-top: 20px;
+    }
+
+    h2 {
+      font-size: 28px;
+    }
+
+    .courses {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card,
+    .panel {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h3 {
+      color: #173b75;
+      margin-top: 0;
+    }
+
+    .button {
+      display: inline-block;
+      background: #245bd6;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 7px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .button:hover {
+      background: #1745ad;
+    }
+
+    form label {
+      display: block;
+      margin-top: 14px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #ccd5e5;
+      border-radius: 6px;
+      font: inherit;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    #status {
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      text-align: center;
+      background: #173b75;
+      color: white;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      nav a {
+        display: inline-block;
+      }
+
+      .hero {
+        padding: 45px 16px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header>
-<strong>🎓 LearnHub</strong>
-<nav>
-<a href="#home">Home</a>
-<a href="#courses">Courses</a>
-<a href="#contact">Contact</a>
-</nav>
-</header>
-<section class="hero" id="home">
-<h1>Learn Today. Lead Tomorrow.</h1>
-<p>Discover new skills and build your future with LearnHub.</p>
-<a class="button" href="#courses">Explore Courses</a>
-</section>
-<main>
-<section id="courses">
-<h2>Our Popular Courses</h2>
-<div class="courses" id="courseList">
-  <p>Loading courses...</p>
-</div>
-</section>
-<section class="panel" id="account">
-<h2>Student Login</h2>
-<p>Student accounts will be connected in a later step.</p>
-<a class="button" href="#contact">Contact Us to Get Started</a>
-</section>
-<section class="panel" id="contact">
-<h2>Contact Us</h2>
-<form id="contactForm">
-<label for="name">Your name</label>
-<input id="name" required placeholder="Enter your name">
-<label for="email">Your email</label>
-<input id="email" type="email" required placeholder="you@example.com">
-<label for="msg">Your message</label>
-<textarea id="msg" rows="4" required placeholder="How can we help?"></textarea>
-<button class="button" type="submit">Send Message</button>
-<p id="status" role="status"></p>
-</form>
-</section>
-</main>
-<footer><p>© 2026 LearnHub Education</p><p>Learn something new every day.</p></footer>
-<script>
-document.getElementById("contactForm").addEventListener("submit",function(e){
-e.preventDefault();
-document.getElementById("status").textContent="Demo only: your message has not been sent or saved.";
-});
-</script>
-  <!-- Supabase connection -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-const SUPABASE_URL = "https://oipqhyykyxjjdnwiohkl.supabase.co";
-const SUPABASE_KEY = "sb_publishable_BzYOr4wlVRylwEo4DO86wQ_iMk4ow6h";
+  <!-- Website header -->
+  <header>
+    <strong>🎓 LearnHub</strong>
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#courses">Courses</a>
+      <a href="#account">Student Login</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-// Load courses from Supabase
-async function loadCourses() {
-  const { data, error } = await supabaseClient
-    .from("courses")
-    .select("*");
+  <!-- Welcome section -->
+  <section class="hero" id="home">
+    <h1>Learn Today. Lead Tomorrow.</h1>
 
-  if (error) {
-    console.error("Error loading courses:", error.message);
-    return;
-  }
+    <p>
+      Discover new skills and build your future with LearnHub.
+    </p>
 
-  console.log("Courses loaded successfully:", data);
-}
+    <a class="button" href="#courses">
+      Explore Courses
+    </a>
+  </section>
 
-// Run the function
-loadCourses();
-</script>
+  <main>
+
+    <!-- Courses from Supabase -->
+    <section id="courses">
+      <h2>Our Popular Courses</h2>
+
+      <p>
+        Explore our courses and start learning something new.
+      </p>
+
+      <div class="courses" id="courseList">
+        <p>Loading courses...</p>
+      </div>
+    </section>
+
+    <!-- Student login section -->
+    <section class="panel" id="account">
+      <h2>Student Login</h2>
+
+      <p>
+        Student accounts will be connected in a later step.
+      </p>
+
+      <a class="button" href="#contact">
+        Contact Us to Get Started
+      </a>
+    </section>
+
+    <!-- Contact form -->
+    <section class="panel" id="contact">
+      <h2>Contact Us</h2>
+
+      <p>
+        Have a question? Send us a message.
+      </p>
+
+      <form id="contactForm">
+        <label for="name">Your name</label>
+
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          placeholder="Enter your name"
+        >
+
+        <label for="email">Your email</label>
+
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          placeholder="you@example.com"
+        >
+
+        <label for="message">Your message</label>
+
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          required
+          placeholder="How can we help?"
+        ></textarea>
+
+        <button class="button" type="submit">
+          Send Message
+        </button>
+
+        <p id="status" role="status"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Website footer -->
+  <footer>
+    <p>&copy; 2026 LearnHub Education</p>
+    <p>Learn something new every day.</p>
+  </footer>
+
+  <!-- Supabase JavaScript library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    // STEP 1: Enter your Supabase project details.
+    // Use your Project URL and publishable key.
+    // Never put a Supabase secret key in this file.
+
+    const SUPABASE_URL = "https://oipqhyykyxjjdnwiohkl.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_BzYOr4wlVRylwEo4DO86wQ_iMk4ow6h";
+
+    // Connect to Supabase
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    // STEP 2: Load courses from the database
+    async function loadCourses() {
+      const courseList = document.getElementById("courseList");
+
+      courseList.innerHTML = "<p>Loading courses...</p>";
+
+      const { data, error } = await supabaseClient
+        .from("courses")
+        .select("*");
+
+      if (error) {
+        console.error("Error loading courses:", error.message);
+
+        courseList.innerHTML =
+          "<p>Unable to load courses. Please try again later.</p>";
+
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        courseList.innerHTML =
+          "<p>No courses available yet.</p>";
+
+        return;
+      }
+
+      // Display each course
+      courseList.innerHTML = data.map(function(course) {
+        // Support common course-name column names.
+        const title =
+          course.title ||
+          course.name ||
+          course.course_name ||
+          "Untitled Course";
+
+        const description =
+          course.description ||
+          course.details ||
+          "Explore this course and start learning!";
+
+        const card = document.createElement("article");
+        card.className = "card";
+
+        const heading = document.createElement("h3");
+        heading.textContent = title;
+
+        const paragraph = document.createElement("p");
+        paragraph.textContent = description;
+
+        card.appendChild(heading);
+        card.appendChild(paragraph);
+
+        return card.outerHTML;
+      }).join("");
+    }
+
+    // Run the course-loading function
+    loadCourses();
+
+    // STEP 3: Contact form demonstration
+    // This form does not save or send messages yet.
+    document
+      .getElementById("contactForm")
+      .addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        document.getElementById("status").textContent =
+          "Thank you! The contact form is not connected to message storage yet.";
+      });
+  </script>
+
 </body>
 </html>
