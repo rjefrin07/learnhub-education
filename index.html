@@ -346,17 +346,48 @@
 
     // Run the course-loading function
     loadCourses();
+// STEP 3: Save contact messages to Supabase
+document
+  .getElementById("contactForm")
+  .addEventListener("submit", async function(event) {
+    event.preventDefault();
 
-    // STEP 3: Contact form demonstration
-    // This form does not save or send messages yet.
-    document
-      .getElementById("contactForm")
-      .addEventListener("submit", function(event) {
-        event.preventDefault();
+    const status = document.getElementById("status");
+    const form = event.target;
 
-        document.getElementById("status").textContent =
-          "Thank you! The contact form is not connected to message storage yet.";
-      });
+    const name = form.querySelector('[name="name"]').value.trim();
+    const email = form.querySelector('[name="email"]').value.trim();
+    const message = form.querySelector('[name="message"]').value.trim();
+
+    status.textContent = "Sending your message...";
+
+    try {
+      const { data, error } = await supabase
+        .from("contact_messages")
+        .insert([
+          {
+            name: name,
+            email: email,
+            message: message
+          }
+        ]);
+
+      if (error) {
+        throw error;
+      }
+
+      status.textContent =
+        "Thank you! Your message has been sent successfully.";
+
+      form.reset();
+
+    } catch (error) {
+      console.error("Contact form error:", error);
+
+      status.textContent =
+        "Sorry, we could not save your message. Please try again.";
+    }
+  });
   </script>
 
 </body>
