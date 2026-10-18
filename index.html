@@ -437,6 +437,91 @@ document
     "Error: " + (error.message || JSON.stringify(error));
 }
   });
+   // STEP 4: Student Registration
+document
+  .getElementById("registerForm")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const status = document.getElementById("authStatus");
+    const email = document.getElementById("registerEmail").value.trim();
+    const password = document.getElementById("registerPassword").value;
+
+    status.textContent = "Creating your account...";
+
+    try {
+      const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          emailRedirectTo:
+            "https://rjefrin07.github.io/learnhub-education/"
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.session) {
+        status.textContent = "Registration successful! You are logged in.";
+      } else {
+        status.textContent =
+          "Registration received! Check your email to confirm your account.";
+      }
+
+      document.getElementById("registerForm").reset();
+    } catch (error) {
+      console.error("Registration error:", error);
+      status.textContent = "Registration failed: " + error.message;
+    }
+  });
+
+// STEP 5: Student Login
+document
+  .getElementById("loginForm")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const status = document.getElementById("authStatus");
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    status.textContent = "Logging in...";
+
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) throw error;
+
+      status.textContent = "Welcome to LearnHub! You are logged in.";
+      document.getElementById("logoutButton").hidden = false;
+      document.getElementById("loginForm").reset();
+    } catch (error) {
+      console.error("Login error:", error);
+      status.textContent = "Login failed: " + error.message;
+    }
+  });
+
+// STEP 6: Student Logout
+document
+  .getElementById("logoutButton")
+  .addEventListener("click", async function () {
+    const status = document.getElementById("authStatus");
+
+    try {
+      const { error } = await supabaseClient.auth.signOut();
+
+      if (error) throw error;
+
+      status.textContent = "You have logged out successfully.";
+      document.getElementById("logoutButton").hidden = true;
+    } catch (error) {
+      console.error("Logout error:", error);
+      status.textContent = "Logout failed: " + error.message;
+    }
+  }); 
   </script>
 
 </body>
