@@ -201,19 +201,69 @@
         <p>Loading courses...</p>
       </div>
     </section>
+<!-- Student login section -->
+<section class="panel" id="account">
+  <h2>Student Login & Registration</h2>
 
-    <!-- Student login section -->
-    <section class="panel" id="account">
-      <h2>Student Login</h2>
+  <p>Create an account or log in to LearnHub.</p>
 
-      <p>
-        Student accounts will be connected in a later step.
-      </p>
+  <form id="registerForm">
+    <h3>Create a Student Account</h3>
 
-      <a class="button" href="#contact">
-        Contact Us to Get Started
-      </a>
-    </section>
+    <label for="registerEmail">Email address</label>
+    <input
+      type="email"
+      id="registerEmail"
+      required
+      autocomplete="email"
+      placeholder="Enter your email"
+    >
+
+    <label for="registerPassword">Password</label>
+    <input
+      type="password"
+      id="registerPassword"
+      required
+      minlength="8"
+      autocomplete="new-password"
+      placeholder="At least 8 characters"
+    >
+
+    <button type="submit">Register</button>
+  </form>
+
+  <hr>
+
+  <form id="loginForm">
+    <h3>Student Login</h3>
+
+    <label for="loginEmail">Email address</label>
+    <input
+      type="email"
+      id="loginEmail"
+      required
+      autocomplete="email"
+      placeholder="Enter your email"
+    >
+
+    <label for="loginPassword">Password</label>
+    <input
+      type="password"
+      id="loginPassword"
+      required
+      autocomplete="current-password"
+      placeholder="Enter your password"
+    >
+
+    <button type="submit">Log In</button>
+  </form>
+
+  <p id="authStatus" role="status" aria-live="polite"></p>
+
+  <button type="button" id="logoutButton" hidden>
+    Log Out
+  </button>
+</section>
 
     <!-- Contact form -->
     <section class="panel" id="contact">
