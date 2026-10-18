@@ -380,13 +380,12 @@ document
         "Thank you! Your message has been sent successfully.";
 
       form.reset();
+} catch (error) {
+  console.error("Contact form error:", error);
 
-    } catch (error) {
-      console.error("Contact form error:", error);
-
-      status.textContent =
-        "Sorry, we could not save your message. Please try again.";
-    }
+  status.textContent =
+    "Error: " + (error.message || JSON.stringify(error));
+}
   });
   </script>
 
