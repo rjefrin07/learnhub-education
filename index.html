@@ -362,8 +362,8 @@ document
     status.textContent = "Sending your message...";
 
     try {
-      const { data, error } = await supabase
-        .from("contact_messages")
+      const { data, error } = await supabaseClient
+  .from("contact_messages")
         .insert([
           {
             name: name,
