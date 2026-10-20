@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Student Dashboard | LearnHub</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6ff;
+      color: #1f2937;
+    }
+
+    header {
+      background: #4338ca;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    header h2 {
+      margin: 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    #logoutBtn {
+      background: white;
+      color: #4338ca;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .welcome {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px #0000000a;
+    }
+
+    .welcome h1 {
+      color: #4338ca;
+      margin-top: 0;
+    }
+
+    #studentEmail {
+      color: #4b5563;
+      overflow-wrap: anywhere;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit, minmax(220px, 1fr)
+      );
+      gap: 20px;
+    }
+
+    .course-card {
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      border-top: 5px solid #6366f1;
+      box-shadow: 0 4px 15px #0000000a;
+    }
+
+    .course-card h3 {
+      color: #4338ca;
+    }
+
+    .course-card p {
+      line-height: 1.6;
+    }
+
+    .status {
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 14px;
+      }
+
+      .welcome {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h2>🎓 LearnHub</h2>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main>
+    <section class="welcome">
+      <h1>Welcome to LearnHub! 👋</h1>
+      <p>Your learning journey starts here.</p>
+      <p>Logged in as: <strong id="studentEmail">Checking...</strong></p>
+    </section>
+
+    <h2>📚 My Courses</h2>
+
+    <div id="status" class="status">
+      Loading your courses...
+    </div>
+
+    <section id="courseList" class="course-grid"></section>
+  </main>
+
+  <script type="module">
+    import { createClient } from
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+    // Replace these two values with your existing
+    // Supabase Project URL and publishable key.
+    const SUPABASE_URL =  https://oipqhyykyxjjdnwiohkl.supabase.co;
+    const SUPABASE_KEY = sb_publishable_BzYOr4wlVRylwEo4DO86wQ_iMk4ow6h;
+
+    const supabase = createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    const status = document.getElementById("status");
+    const courseList = document.getElementById("courseList");
+
+    async function loadDashboard() {
+      const { data: { session }, error } =
+        await supabase.auth.getSession();
+
+      if (error || !session) {
+        window.location.replace("index.html");
+        return;
+      }
+
+      document.getElementById("studentEmail").textContent =
+        session.user.email || "Student";
+
+      const { data: courses, error: courseError } =
+        await supabase
+          .from("courses")
+          .select("*");
+
+      if (courseError) {
+        status.textContent =
+          "Unable to load courses. Please check your database permissions.";
+        return;
+      }
+
+      if (!courses || courses.length === 0) {
+        status.textContent = "No courses are available yet.";
+        return;
+      }
+
+      status.style.display = "none";
+
+      courseList.replaceChildren();
+
+      courses.forEach((course) => {
+        const card = document.createElement("article");
+        card.className = "course-card";
+
+        const title = document.createElement("h3");
+        title.textContent = course.title || course.name || "Course";
+
+        const description = document.createElement("p");
+        description.textContent =
+          course.description || "Start learning with LearnHub!";
+
+        card.append(title, description);
+        courseList.appendChild(card);
+      });
+    }
+
+    document.getElementById("logoutBtn")
+      .addEventListener("click", async () => {
+        const { error } = await supabase.auth.signOut();
+
+        if (error) {
+          alert("Logout failed. Please try again.");
+          return;
+        }
+
+        window.location.replace("index.html");
+      });
+
+    loadDashboard();
+  </script>
+
+</body>
+</html>
