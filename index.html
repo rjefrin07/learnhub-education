@@ -486,14 +486,17 @@ document
     const password = document.getElementById("loginPassword").value;
 
     status.textContent = "Logging in...";
+try {
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
 
-    try {
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+  if (error) throw error;
 
-      if (error) throw error;
+  // Login successful: open the student dashboard
+  window.location.href = "dashboard.html";
+  
 
       status.textContent = "Welcome to LearnHub! You are logged in.";
       document.getElementById("logoutButton").hidden = false;
